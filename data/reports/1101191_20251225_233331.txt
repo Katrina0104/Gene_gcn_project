@@ -1,0 +1,80 @@
+======================================================================
+                    Genetic Image Analysis Report
+======================================================================
+
+Report ID: GIA-20251225-233331
+Generation Date: 2025-12-25 23:33:31
+Laboratory: AI Genetic Analysis Laboratory
+----------------------------------------------------------------------
+
+【Patient Information】
+----------------------------------------
+patient_id: 1101191
+patient_name: A2
+age: 19
+gender: F
+
+【Specimen Information】
+----------------------------------------
+sample_id: 1101191
+sample_type: Chromosome karyotype image
+image_filename: 1101191.jpg
+analysis_date: 2025-12-25
+
+【Analysis Results】
+----------------------------------------
+Chromosome Count: 2
+Detection Status: Insufficient chromosome count (2)
+Anomaly Score: 0.900
+Confidence: 0.90
+Is Normal: No
+
+【Statistical Information】
+----------------------------------------
+average_area: 399.250
+area_variation: 0.097
+average_aspect_ratio: 1.713
+average_circularity: 0.313
+
+【Clinical Interpretation】
+----------------------------------------
+Finding: Chromosome abnormality detected
+Interpretation: Insufficient chromosome count (2)
+Clinical Significance: Requires further confirmation
+
+
+【Recommendations】
+----------------------------------------
+Immediate Recommendations:
+  1. Immediate consultation with clinical genetics specialist
+  2. Schedule genetic counseling appointment
+  3. Perform confirmatory genetic testing
+
+Follow-up Recommendations:
+  1. Regular chromosome follow-up examinations
+  2. Detailed ultrasound evaluation
+  3. Multidisciplinary team evaluation
+
+Counseling Recommendations:
+  1. Genetic counseling and risk assessment
+  2. Reproductive options counseling
+  3. Family support and resource referral
+
+【Risk Assessment】
+----------------------------------------
+overall_risk: High
+confidence: Medium-High
+
+【Technical Notes】
+----------------------------------------
+methodology: Computer vision + Pattern recognition analysis
+limitations: AI-assisted analysis, requires integration with clinical data
+disclaimer: This report is for reference only, not for final diagnosis
+
+======================================================================
+Important Notice:
+1. This report is generated with AI system assistance
+2. Results must be confirmed by professional genetic counselor
+3. Please integrate with clinical symptoms for comprehensive judgment
+4. Final diagnosis should be made by attending physician
+======================================================================

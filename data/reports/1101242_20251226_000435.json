@@ -1,0 +1,71 @@
+{
+  "report_header": {
+    "title": "Genetic Image Analysis Report",
+    "report_id": "GIA-20251226-000435",
+    "lab_name": "AI Genetic Analysis Laboratory",
+    "generation_date": "2025-12-26 00:04:35",
+    "report_version": "2.0"
+  },
+  "patient_information": {
+    "patient_id": "1101242",
+    "patient_name": "A26",
+    "age": "35",
+    "gender": "F"
+  },
+  "specimen_information": {
+    "sample_id": "1101242",
+    "sample_type": "Chromosome karyotype image",
+    "image_filename": "1101242.jpg",
+    "analysis_date": "2025-12-26"
+  },
+  "analysis_results": {
+    "chromosome_count": 1,
+    "statistics": {
+      "average_area": 168.5,
+      "area_variation": 0.0,
+      "average_aspect_ratio": 0.6201780438274196,
+      "average_circularity": 0.38984562047420057
+    },
+    "status": "Insufficient chromosome count (1)",
+    "is_normal": false,
+    "anomaly_score": 0.9,
+    "suspected_conditions": [
+      "Severe chromosome deletion"
+    ],
+    "confidence": 1.0
+  },
+  "clinical_interpretation": [
+    {
+      "finding": "Chromosome abnormality detected",
+      "interpretation": "Insufficient chromosome count (1)",
+      "significance": "Requires further confirmation"
+    }
+  ],
+  "differential_diagnosis": [],
+  "recommendations": {
+    "immediate": [
+      "Immediate consultation with clinical genetics specialist",
+      "Schedule genetic counseling appointment",
+      "Perform confirmatory genetic testing"
+    ],
+    "follow_up": [
+      "Regular chromosome follow-up examinations",
+      "Detailed ultrasound evaluation",
+      "Multidisciplinary team evaluation"
+    ],
+    "counseling": [
+      "Genetic counseling and risk assessment",
+      "Reproductive options counseling",
+      "Family support and resource referral"
+    ]
+  },
+  "risk_assessment": {
+    "overall_risk": "High",
+    "confidence": "Medium-High"
+  },
+  "technical_notes": {
+    "methodology": "Computer vision + Pattern recognition analysis",
+    "limitations": "AI-assisted analysis, requires integration with clinical data",
+    "disclaimer": "This report is for reference only, not for final diagnosis"
+  }
+}

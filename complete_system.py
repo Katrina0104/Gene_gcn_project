@@ -186,87 +186,70 @@ class ChromosomeAnalyzer:
         }
     
     def extract_features(self, processing_results):
-        """Extract chromosome features"""
-        print("\n📊 Extracting chromosome features...")
-        
-        img = processing_results['original']
-        contours = processing_results['contours']
-        
+        """
+        Extract chromosome features from contours / rotated boxes
+        Compatible with NumPy >= 1.24
+        """
+        print("Extracting chromosome features...")
+
+        img = processing_results["enhanced"]
+        contours = processing_results["contours"]
+
         features = []
-        chromosome_images = []
-        
-        for i, contour in enumerate(contours):
-            # Basic geometric features
+        boxes = []
+
+        for contour in contours:
             area = cv2.contourArea(contour)
-            perimeter = cv2.arcLength(contour, True)
-            
-            # Bounding rectangle
-            x, y, w, h = cv2.boundingRect(contour)
-            aspect_ratio = w / float(h) if h > 0 else 0
-            
-            # Minimum enclosing rectangle
+            if area < 100:  # 過濾雜訊
+                continue
+
+            # 最小外接旋轉矩形
             rect = cv2.minAreaRect(contour)
             box = cv2.boxPoints(rect)
-            box = np.int0(box)
-            
-            # Crop chromosome image
-            padding = 5
-            x1 = max(0, x - padding)
-            y1 = max(0, y - padding)
-            x2 = min(img.shape[1], x + w + padding)
-            y2 = min(img.shape[0], y + h + padding)
-            
-            if y2 > y1 and x2 > x1:
-                chromosome_img = img[y1:y2, x1:x2]
-                chromosome_images.append(chromosome_img)
-                
-                # Calculate texture features
-                if len(chromosome_img.shape) == 3:
-                    gray_chrom = cv2.cvtColor(chromosome_img, cv2.COLOR_BGR2GRAY)
-                else:
-                    gray_chrom = chromosome_img
-                
-                if gray_chrom.size > 0:
-                    mean_intensity = np.mean(gray_chrom)
-                    std_intensity = np.std(gray_chrom)
-                else:
-                    mean_intensity = std_intensity = 0
+
+            # ✅ 修正點：不要用 np.int0
+            box = box.astype(np.int32)
+
+            boxes.append(box)
+
+            # 幾何特徵
+            width, height = rect[1]
+            aspect_ratio = width / height if height != 0 else 0
+            perimeter = cv2.arcLength(contour, True)
+
+            # ROI
+            x, y, w, h = cv2.boundingRect(contour)
+            roi = img[y:y+h, x:x+w]
+
+            if roi.size > 0:
+                mean_intensity = np.mean(roi)
+                std_intensity = np.std(roi)
             else:
-                mean_intensity = std_intensity = 0
-            
-            # Circularity
-            if perimeter > 0:
-                circularity = 4 * np.pi * area / (perimeter * perimeter)
-            else:
-                circularity = 0
-            
-            # Save features
-            features.append({
-                'index': i,
-                'area': area,
-                'perimeter': perimeter,
-                'width': w,
-                'height': h,
-                'aspect_ratio': aspect_ratio,
-                'circularity': circularity,
-                'mean_intensity': mean_intensity,
-                'std_intensity': std_intensity,
-                'position': (x, y),
-                'centroid': (x + w//2, y + h//2)
-            })
-        
-        print(f"✅ Successfully extracted features from {len(features)} chromosomes")
-        
-        processing_results['features'] = features
-        processing_results['chromosome_images'] = chromosome_images
-        
+                mean_intensity = 0
+                std_intensity = 0
+
+            features.append([
+                area,
+                perimeter,
+                aspect_ratio,
+                mean_intensity,
+                std_intensity,
+                w,
+                h
+            ])
+
+        processing_results["features"] = np.array(features)
+        processing_results["boxes"] = boxes
+
+        print(f"✅ Extracted {len(features)} chromosome features")
         return processing_results
     
     def analyze_chromosome_pattern(self, features):
         """Analyze chromosome patterns"""
         print("\n🧬 Analyzing chromosome patterns...")
-        
-        if not features:
+
+        if features is None or (hasattr(features, 'size') and features.size == 0) or len(features) == 0:
+            print("No features detected")
             return {
                 'chromosome_count': 0,
                 'status': 'No chromosomes detected',
@@ -275,22 +258,27 @@ class ChromosomeAnalyzer:
                 'suspected_conditions': ['Image quality issue or no chromosomes'],
                 'confidence': 0.0
             }
-        
+
         chromosome_count = len(features)
-        
-        # Extract numerical features
-        areas = [f['area'] for f in features]
-        aspect_ratios = [f['aspect_ratio'] for f in features]
-        circularities = [f['circularity'] for f in features]
-        
+
+        # 將 features 轉成 list（如果是 numpy array）
+        if isinstance(features, np.ndarray):
+            features = features.tolist()
+
+        # 根據 extract_features 的順序使用索引
+        areas = [f[0] for f in features]
+        perimeters = [f[1] for f in features]
+        aspect_ratios = [f[2] for f in features]
+        circularities = [4 * np.pi * f[0] / (f[1]**2) if f[1] != 0 else 0 for f in features]
+
         # Calculate statistics
         avg_area = np.mean(areas) if areas else 0
         std_area = np.std(areas) if len(areas) > 1 else 0
         cv_area = std_area / avg_area if avg_area > 0 else 0
-        
+
         avg_aspect_ratio = np.mean(aspect_ratios) if aspect_ratios else 0
         avg_circularity = np.mean(circularities) if circularities else 0
-        
+
         # Initialize analysis results
         analysis = {
             'chromosome_count': chromosome_count,
@@ -301,11 +289,11 @@ class ChromosomeAnalyzer:
                 'average_circularity': float(avg_circularity)
             }
         }
-        
+
         # Analysis based on chromosome count
         anomaly_score = 0
         suspected_conditions = []
-        
+
         if chromosome_count == 46:
             analysis['status'] = 'Normal chromosome count (46)'
             analysis['is_normal'] = True
@@ -342,25 +330,25 @@ class ChromosomeAnalyzer:
             analysis['status'] = f'Chromosome count: {chromosome_count}'
             analysis['is_normal'] = False
             anomaly_score = 0.5
-        
+
         # Analysis based on shape variation
         if cv_area > 0.5:
             anomaly_score += 0.15
             analysis['status'] += ' + Size variation abnormality'
             suspected_conditions.append('Chromosome structural abnormality')
-        
+
         if avg_circularity < 0.3:
             anomaly_score += 0.1
             analysis['status'] += ' + Shape abnormality'
-        
+
         analysis['anomaly_score'] = min(float(anomaly_score), 1.0)
         analysis['suspected_conditions'] = suspected_conditions
         analysis['confidence'] = 1.0 - (std_area / avg_area if avg_area > 0 else 1.0)
-        
+
         print(f"   Chromosome count: {chromosome_count}")
         print(f"   Status: {analysis['status']}")
         print(f"   Anomaly score: {analysis['anomaly_score']:.2f}")
-        
+
         return analysis
     
     def generate_medical_report(self, analysis, patient_info=None, image_path=None):

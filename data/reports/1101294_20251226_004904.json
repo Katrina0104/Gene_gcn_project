@@ -1,0 +1,65 @@
+{
+  "report_header": {
+    "title": "Genetic Image Analysis Report",
+    "report_id": "GIA-20251226-004904",
+    "lab_name": "AI Genetic Analysis Laboratory",
+    "generation_date": "2025-12-26 00:49:04",
+    "report_version": "2.0"
+  },
+  "patient_information": {
+    "patient_id": "1101294",
+    "patient_name": "A50",
+    "age": "53",
+    "gender": "F"
+  },
+  "specimen_information": {
+    "sample_id": "1101294",
+    "sample_type": "Chromosome karyotype image",
+    "image_filename": "1101294.jpg",
+    "analysis_date": "2025-12-26"
+  },
+  "analysis_results": {
+    "chromosome_count": 0,
+    "status": "No chromosomes detected",
+    "is_normal": false,
+    "anomaly_score": 1.0,
+    "suspected_conditions": [
+      "Image quality issue or no chromosomes"
+    ],
+    "confidence": 0.0
+  },
+  "clinical_interpretation": [
+    {
+      "finding": "Chromosome abnormality detected",
+      "interpretation": "No chromosomes detected",
+      "significance": "Requires further confirmation"
+    }
+  ],
+  "differential_diagnosis": [],
+  "recommendations": {
+    "immediate": [
+      "Immediate consultation with clinical genetics specialist",
+      "Schedule genetic counseling appointment",
+      "Perform confirmatory genetic testing"
+    ],
+    "follow_up": [
+      "Regular chromosome follow-up examinations",
+      "Detailed ultrasound evaluation",
+      "Multidisciplinary team evaluation"
+    ],
+    "counseling": [
+      "Genetic counseling and risk assessment",
+      "Reproductive options counseling",
+      "Family support and resource referral"
+    ]
+  },
+  "risk_assessment": {
+    "overall_risk": "High",
+    "confidence": "Medium-Low"
+  },
+  "technical_notes": {
+    "methodology": "Computer vision + Pattern recognition analysis",
+    "limitations": "AI-assisted analysis, requires integration with clinical data",
+    "disclaimer": "This report is for reference only, not for final diagnosis"
+  }
+}

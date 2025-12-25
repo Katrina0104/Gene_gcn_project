@@ -1,0 +1,80 @@
+======================================================================
+                    Genetic Image Analysis Report
+======================================================================
+
+Report ID: GIA-20251226-001145
+Generation Date: 2025-12-26 00:11:45
+Laboratory: AI Genetic Analysis Laboratory
+----------------------------------------------------------------------
+
+【Patient Information】
+----------------------------------------
+patient_id: 1101271
+patient_name: A38
+age: 54
+gender: F
+
+【Specimen Information】
+----------------------------------------
+sample_id: 1101271
+sample_type: Chromosome karyotype image
+image_filename: 1101271.jpg
+analysis_date: 2025-12-26
+
+【Analysis Results】
+----------------------------------------
+Chromosome Count: 4
+Detection Status: Insufficient chromosome count (4) + Size variation abnormality + Shape abnormality
+Anomaly Score: 1.000
+Confidence: -0.01
+Is Normal: No
+
+【Statistical Information】
+----------------------------------------
+average_area: 476.500
+area_variation: 1.008
+average_aspect_ratio: 1.738
+average_circularity: 0.284
+
+【Clinical Interpretation】
+----------------------------------------
+Finding: Chromosome abnormality detected
+Interpretation: Insufficient chromosome count (4) + Size variation abnormality + Shape abnormality
+Clinical Significance: Requires further confirmation
+
+
+【Recommendations】
+----------------------------------------
+Immediate Recommendations:
+  1. Immediate consultation with clinical genetics specialist
+  2. Schedule genetic counseling appointment
+  3. Perform confirmatory genetic testing
+
+Follow-up Recommendations:
+  1. Regular chromosome follow-up examinations
+  2. Detailed ultrasound evaluation
+  3. Multidisciplinary team evaluation
+
+Counseling Recommendations:
+  1. Genetic counseling and risk assessment
+  2. Reproductive options counseling
+  3. Family support and resource referral
+
+【Risk Assessment】
+----------------------------------------
+overall_risk: High
+confidence: Medium-Low
+
+【Technical Notes】
+----------------------------------------
+methodology: Computer vision + Pattern recognition analysis
+limitations: AI-assisted analysis, requires integration with clinical data
+disclaimer: This report is for reference only, not for final diagnosis
+
+======================================================================
+Important Notice:
+1. This report is generated with AI system assistance
+2. Results must be confirmed by professional genetic counselor
+3. Please integrate with clinical symptoms for comprehensive judgment
+4. Final diagnosis should be made by attending physician
+======================================================================
