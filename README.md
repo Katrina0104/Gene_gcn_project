@@ -1,3 +1,6 @@
+Remind: I use virtual environment to build 
+so if want to use need to download these packages
+
 Package                   Version      (all package in the project)
 ------------------------- -----------
 aiohappyeyeballs          2.6.1
